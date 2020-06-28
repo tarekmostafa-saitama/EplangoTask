@@ -1,0 +1,22 @@
+﻿@using EplangoTask.Core.DbEntities
+@model IEnumerable<EplangoTask.Core.DbEntities.Employee>
+   @using (Html.BeginForm("ChangeManager","Department",FormMethod.Post,new{}))
+   {
+
+
+       <div class="col-12">
+           <div class="form-group">
+               <div class="controls">
+                   @Html.Hidden("id", Url.RouteCollection["id"])
+                   <label asp-for="managerId">المدير الخاص بالقسم</label>
+                   <select name="managerId" class="form-control">
+                       @foreach (var i in Model)
+                       {
+                           <option value="@i.Id">@i.Name</option>
+                       }
+                   </select>
+               </div>
+           </div>
+           <button class="btn btn-success" type="submit">تعديل المدير</button>
+       </div>
+   }

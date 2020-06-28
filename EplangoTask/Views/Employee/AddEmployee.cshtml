@@ -1,0 +1,127 @@
+﻿@using EplangoTask.Core.DbEntities
+
+@{
+    ViewData["Title"] = "اضافة قسم جديد";
+}
+
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-12 mb-2 mt-1">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h5 class="content-header-title float-left pr-1 mb-0">اين انت :</h5>
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb p-0 mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href=""><i class="bx bx-home-alt"></i></a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a>ادارة الموظفين</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    اضافة موظف جديد
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <!-- Description -->
+            <section id="description" class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                    </h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
+
+
+                                @using (Html.BeginForm("AddEmployee", "Employee", FormMethod.Post))
+                                {
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            @Html.ValidationSummary()
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label name="Name">اسم الموظف</label>
+                                                    <input name="Name" class="form-control" placeholder="اسم الموظف">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label name="Phone">هاتف الموظف</label>
+                                                    <input name="Phone" class="form-control" placeholder="هاتف الموظف">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label name="Address">عنوان الموظف</label>
+                                                    <input name="Address" class="form-control" placeholder="عنوان الموظف">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label>القسم</label>
+                                                    <select name="DepartmentId" class="form-control">
+                                                        <option value="">غير ملتحق بقسم</option>
+                                                        @foreach (var i in (List<Department>) ViewBag.Departments)
+                                                        {
+                                                            <option value="@i.Id">@i.Name</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                                            <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">
+                                                اضافة الموظف
+                                            </button>
+                                            <a href="/Department/List" class="btn btn-light mb-1">الغاء</a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </section>
+            <!--/ Description -->
+
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+@section Scripts{
+
+
+}

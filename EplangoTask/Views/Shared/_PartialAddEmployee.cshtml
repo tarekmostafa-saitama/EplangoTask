@@ -1,0 +1,22 @@
+﻿@using EplangoTask.Core.DbEntities
+@model IEnumerable<EplangoTask.Core.DbEntities.Employee>
+@using (Html.BeginForm("AddEmployee","Department",FormMethod.Post,new{}))
+{
+
+
+    <div class="col-12">
+        <div class="form-group">
+            <div class="controls">
+                @Html.Hidden("id", Url.RouteCollection["id"])
+                <label asp-for="empId">الموظفين المتاحين للاضافة</label>
+                <select name="empId" class="form-control">
+                    @foreach (var i in Model)
+                    {
+                        <option value="@i.Id">@i.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <button class="btn btn-success" type="submit">اضافة الموظف</button>
+    </div>
+}

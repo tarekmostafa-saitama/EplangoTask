@@ -1,0 +1,157 @@
+﻿@using System.Collections.Specialized
+@model IEnumerable<EplangoTask.Core.DbEntities.Department>
+@{
+    ViewData["Title"] = "قائمة الاقسام";
+}
+
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-12 mb-2 mt-1">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h5 class="content-header-title float-left pr-1 mb-0">اين انت :</h5>
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb p-0 mb-0">
+                                <li class="breadcrumb-item">
+                                    <a><i class="bx bx-home-alt"></i></a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a>ادارة الاقسام</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    قائمة الاقسام
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <!-- Description -->
+            <section id="description" class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <a href="/Department/AddDepartment" class="btn btn-primary btn-lg btn-link">
+                            اضافة قسم جديد
+                        </a>
+                    </h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <table class="table table-striped" id="tbl">
+                            <thead>
+                                <tr>
+                                    <th>اسم القسم</th>
+
+
+                                    <th>العمليات المتاحة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (!Model.Any())
+                                {
+                                    <tr>
+                                        <td colspan="5">
+                                            <h2 class="text-danger text-center">لا يوجد اقسام.</h2>
+                                        </td>
+                                    </tr>
+                                }
+                                @foreach (var department in Model)
+                                {
+                                    <tr>
+                                        <td>@department.Name</td>
+
+
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    @Html.ActionLink("تفاصيل القسم", "DepartmentDetails", new { id = department.Id }, new { @class = "btn btn-info" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @using (Html.BeginForm("DeleteDepartment", "Department", new { id = department.Id }, FormMethod.Post, new { @class = "deleteForm" }))
+                                                    {
+                                                        <button type="submit" class="btn btn-danger">حذف القسم</button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!--/ Description -->
+
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+    <script src="~/Content/bootbox.js/bootbox.min.js"></script>
+
+
+    <script>
+        $('#tbl').DataTable({
+            //paging: false,
+            "language": {
+                "sProcessing": "جارٍ التحميل...",
+                "sLengthMenu": "أظهر _MENU_ مدخلات",
+                "sZeroRecords": "لم يعثر على أية سجلات",
+                "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                "sInfoPostFix": "",
+                "sSearch": "ابحث:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "الأول",
+                    "sPrevious": "السابق",
+                    "sNext": "التالي",
+                    "sLast": "الأخير"
+                }
+            }
+        });
+
+        $('.deleteForm').click(function (e) {
+            let event = e;
+            e.preventDefault();
+            bootbox.confirm({
+                message: "هل انت متاكد من عمليه الحذف ؟",
+                buttons: {
+                    confirm: {
+                        label: 'نعم ',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'لا ',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        console.log(e.target);
+                        e.target.parentNode.submit();
+                    }
+                }
+            });
+
+        });
+
+
+
+    </script>
+}
+
+
